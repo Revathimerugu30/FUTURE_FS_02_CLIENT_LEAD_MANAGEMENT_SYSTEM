@@ -1,9 +1,12 @@
 import axios from 'axios';
 
-const baseURL = import.meta.env.VITE_API_URL || '/api';
+const fallbackBackend = 'https://future-fs-02-client-lead-management.onrender.com/api';
+const baseURL = import.meta.env.VITE_API_URL || (import.meta.env.MODE === 'production' ? fallbackBackend : '/api');
 
 if (!import.meta.env.VITE_API_URL && import.meta.env.MODE === 'production') {
-  console.error('VITE_API_URL is not set in production. Please configure it on Vercel to point to your backend API.');
+  console.error(
+    `VITE_API_URL is not set in production. Falling back to ${fallbackBackend}. Configure Vercel env vars to avoid this.`
+  );
 }
 
 const API = axios.create({
