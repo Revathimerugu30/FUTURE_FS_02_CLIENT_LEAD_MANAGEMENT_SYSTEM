@@ -11,12 +11,19 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('crm_token');
     const savedUser = localStorage.getItem('crm_user');
-    if (token && savedUser) {
-      setUser(JSON.parse(savedUser));
-      // Verify token
+    if (token) {
+      // If we have a cached user, set it immediately for fast UI, then verify server-side
+      if (savedUser) setUser(JSON.parse(savedUser));
+      // Always verify token with server to populate fresh user data or invalidate token
       getMe()
-        .then((res) => setUser(res.data.user))
-        .catch(() => { localStorage.removeItem('crm_token'); localStorage.removeItem('crm_user'); setUser(null); })
+        .then((res) => {
+          setUser(res.data.user);
+        })
+        .catch(() => {
+          localStorage.removeItem('crm_token');
+          localStorage.removeItem('crm_user');
+          setUser(null);
+        })
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
