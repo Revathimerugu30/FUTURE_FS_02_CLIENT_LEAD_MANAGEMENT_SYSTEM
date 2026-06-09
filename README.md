@@ -159,6 +159,7 @@ Or use the demo credentials: `admin@crm.com` / `admin123`
 2. Connect your GitHub repo, select `frontend/` as root
 3. Add Environment Variable:
    - `VITE_API_URL` – your Render backend URL + `/api`
+   - Example: `https://future-fs-02-client-lead-management.onrender.com/api`
    - Example: `https://your-backend-url.vercel.app/api`
 4. Deploy
 
