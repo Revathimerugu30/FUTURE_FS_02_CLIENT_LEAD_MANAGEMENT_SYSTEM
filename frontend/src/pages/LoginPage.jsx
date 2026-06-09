@@ -80,14 +80,21 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-4 p-3 bg-white/5 border border-white/10 rounded-xl">
-            <p className="text-xs text-gray-400 mb-2 font-medium">Demo credentials:</p>
-            <button onClick={fillDemo} className="text-xs text-blue-400 hover:text-blue-300 transition-colors underline">
-              admin@crm.com / admin123
+          <div className="mt-4 flex justify-center">
+            <button
+              type="button"
+              title="Try demo account"
+              onClick={() => {
+                fillDemo();
+                // keep fields filled for manual submit to avoid surprising users
+              }}
+              className="w-full max-w-sm py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm border border-white/10"
+            >
+              Use Demo Login
             </button>
           </div>
         </div>
-        <p className="text-center text-gray-500 text-xs mt-6">© 2024 CRM System. Built with MERN Stack.</p>
+        <p className="text-center text-gray-500 text-xs mt-6">© 2026 CRM System. Built with MERN Stack.</p>
       </div>
     </div>
   );

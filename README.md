@@ -159,7 +159,10 @@ Or use the demo credentials: `admin@crm.com` / `admin123`
 2. Connect your GitHub repo, select `frontend/` as root
 3. Add Environment Variable:
    - `VITE_API_URL` – your Render backend URL + `/api`
+   - Example: `https://your-backend-url.vercel.app/api`
 4. Deploy
+
+> If login fails on the deployed frontend, verify that `VITE_API_URL` is configured in Vercel and that the backend is reachable from the browser. Do not leave `VITE_API_URL` pointing to `http://localhost:5000/api` in production.
 
 ## 🔑 Sample Admin Credentials
 

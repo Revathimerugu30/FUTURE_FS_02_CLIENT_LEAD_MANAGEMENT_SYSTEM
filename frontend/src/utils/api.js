@@ -1,7 +1,13 @@
 import axios from 'axios';
 
+const baseURL = import.meta.env.VITE_API_URL || '/api';
+
+if (!import.meta.env.VITE_API_URL && import.meta.env.MODE === 'production') {
+  console.error('VITE_API_URL is not set in production. Please configure it on Vercel to point to your backend API.');
+}
+
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL,
 });
 
 API.interceptors.request.use((config) => {
