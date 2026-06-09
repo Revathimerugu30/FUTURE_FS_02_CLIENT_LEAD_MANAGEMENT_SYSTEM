@@ -17,9 +17,10 @@ export default function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
+            {/* Public routes */}
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+
+            {/* Protected routes - all CRM pages are under authentication */}
             <Route
               element={
                 <ProtectedRoute>
@@ -33,6 +34,10 @@ export default function App() {
               <Route path="/analytics" element={<AnalyticsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Route>
+
+            {/* Root and fallback: redirect to dashboard if authenticated, else caught by ProtectedRoute */}
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </BrowserRouter>
         <Toaster

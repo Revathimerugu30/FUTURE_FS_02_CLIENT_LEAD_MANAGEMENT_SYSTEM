@@ -22,7 +22,8 @@ export default function LoginPage() {
     try {
       await login(form.email, form.password);
       toast.success('Welcome back!');
-      navigate('/dashboard');
+      // Always redirect to dashboard. Use replace: true so back button doesn't return to login.
+      navigate('/dashboard', { replace: true });
     } catch (err) {
       toast.error(err.response?.data?.message || 'Login failed');
     } finally {

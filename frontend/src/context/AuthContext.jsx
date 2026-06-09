@@ -11,21 +11,33 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('crm_token');
     const savedUser = localStorage.getItem('crm_user');
+
     if (token) {
-      // If we have a cached user, set it immediately for fast UI, then verify server-side
-      if (savedUser) setUser(JSON.parse(savedUser));
-      // Always verify token with server to populate fresh user data or invalidate token
+      // Token found: restore cached user immediately for fast UI render
+      if (savedUser) {
+        try {
+          setUser(JSON.parse(savedUser));
+        } catch (e) {
+          localStorage.removeItem('crm_user');
+        }
+      }
+
+      // Verify token validity with server
       getMe()
         .then((res) => {
+          // Token is valid: update user from server response
           setUser(res.data.user);
+          setLoading(false);
         })
         .catch(() => {
+          // Token is invalid or expired: clear auth state
           localStorage.removeItem('crm_token');
           localStorage.removeItem('crm_user');
           setUser(null);
-        })
-        .finally(() => setLoading(false));
+          setLoading(false);
+        });
     } else {
+      // No token: user is logged out
       setLoading(false);
     }
   }, []);
