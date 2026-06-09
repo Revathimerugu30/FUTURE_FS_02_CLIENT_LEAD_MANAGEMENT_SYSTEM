@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
   }
 };
 
-// @desc    Login admin
+// @desc    Login user
 // @route   POST /api/auth/login
 exports.login = async (req, res) => {
   try {
