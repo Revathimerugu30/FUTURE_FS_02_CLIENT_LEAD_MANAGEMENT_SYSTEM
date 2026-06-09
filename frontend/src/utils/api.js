@@ -34,7 +34,9 @@ API.interceptors.request.use((config) => {
 API.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // Only redirect to login on 401 for protected routes, NOT for login/register attempts
+    // This allows AuthContext to handle login/auth errors with demo fallback
+    if (error.response?.status === 401 && !error.config?.url?.includes('/auth/login') && !error.config?.url?.includes('/auth/register')) {
       localStorage.removeItem('crm_token');
       localStorage.removeItem('crm_user');
       window.location.href = '/login';
